@@ -1,0 +1,22 @@
+* Преобразование файла D:\MobGit\empty-directories-deletion\Project1.dpr *
+К параметрам пользователя добавлены определения -dBorland -dVer150 -dDelphi7 -dCompiler6_Up -dPUREPASCAL
+Найдены все файлы модулей
+* Исправление списка используемых модулей в файле D:\MobGit\empty-directories-deletion\Project1.dpr *
+
+*** Преобразование файлов модулей, принадлежащих проекту/пакету ***
+* Преобразование файла D:\MobGit\empty-directories-deletion\Unit1.pas *
+Кодировка изменена с cp1251 на UTF-8
+Модуль "Windows" в выражении Uses заменён на "LCLIntf, LCLType, LMessages".
+Replaced call GetCurrentDir; with GetCurrentDirUTF8; { *Converted from GetCurrentDir* }
+Added unit FileUtil to uses section
+Replaced call FindClose( sr ); with FindCloseUTF8(sr ); { *Converted from FindClose* }
+Replaced call FindNext( sr ); with FindNextUTF8(sr ); { *Converted from FindNext* }
+Replaced call RemoveDir( putw2+sr.Name+'\' ); with RemoveDirUTF8(putw2+sr.Name+'\' ); { *Converted from RemoveDir* }
+Replaced call FindFirst( putw, atribut, sr ); with FindFirstUTF8(putw,atribut,sr ); { *Converted from FindFirst* }
+
+*** Исправление списков используемых модулей и файлов форм ***
+* Исправление файла формы D:\MobGit\empty-directories-deletion\Unit1.lfm *
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+* Исправление списка используемых модулей в файле D:\MobGit\empty-directories-deletion\Unit1.pas *
+Преобразование завершено.

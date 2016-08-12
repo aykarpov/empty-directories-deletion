@@ -1,0 +1,15 @@
+/.project
+/*.dof
+/*.cfg
+/*.exe
+/*.dcu
+/*.ddp
+/test/*.*
+/ConverterBackup/*.*
+/backup/*.*
+/*.compiled
+/*.lpi
+/*.lps
+/*.o
+/*.or
+/*.ppu

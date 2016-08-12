@@ -1,10 +1,19 @@
 unit Unit1;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, FileUtil;
 
 type
   TForm1 = class(TForm)
@@ -29,14 +38,18 @@ var
 
 implementation
 
-{$R *.dfm}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
-//Цель:
-//войти в каталог
-//если файл - считать
-//если каталог - войти
-//если каталог пуст - стереть
-//передать число файлов вверх
+//Р¦РµР»СЊ:
+//РІРѕР№С‚Рё РІ РєР°С‚Р°Р»РѕРі
+//РµСЃР»Рё С„Р°Р№Р» - СЃС‡РёС‚Р°С‚СЊ
+//РµСЃР»Рё РєР°С‚Р°Р»РѕРі - РІРѕР№С‚Рё
+//РµСЃР»Рё РєР°С‚Р°Р»РѕРі РїСѓСЃС‚ - СЃС‚РµСЂРµС‚СЊ
+//РїРµСЂРµРґР°С‚СЊ С‡РёСЃР»Рѕ С„Р°Р№Р»РѕРІ РІРІРµСЂС…
 //
 //
 //
@@ -60,14 +73,14 @@ var
   iskomye_fajly :Boolean;
 begin
   fajlov_vsego := 0;
-  //готовим вспомогательные имена файлов
+  //РіРѕС‚РѕРІРёРј РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РёРјРµРЅР° С„Р°Р№Р»РѕРІ
   putw2 := Copy( putw, 1, Length( putw )-3 );
 
-  //обходим каталоги
+  //РѕР±С…РѕРґРёРј РєР°С‚Р°Р»РѕРіРё
   poisk_okoncqen := 0;
 
   atribut := faAnyFile;
-  poisk_okoncqen := FindFirst( putw, atribut, sr );
+  poisk_okoncqen := FindFirstUTF8(putw,atribut,sr ); { *Converted from FindFirst* }
 
   while poisk_okoncqen=0 do
   begin
@@ -86,16 +99,16 @@ begin
         fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
         if fajlov_vnizu = 0 then
         begin
-          RemoveDir( putw2+sr.Name+'\' );
+          RemoveDirUTF8(putw2+sr.Name+'\' ); { *Converted from RemoveDir* }
         end;
         fajlov_vsego := fajlov_vsego + fajlov_vnizu;
       end;
     end;
 
-    //FindNext возвращает 0, когда файды есть, и код ошибки, когда все перебраны
-    poisk_okoncqen := FindNext( sr );
+    //FindNext РІРѕР·РІСЂР°С‰Р°РµС‚ 0, РєРѕРіРґР° С„Р°Р№РґС‹ РµСЃС‚СЊ, Рё РєРѕРґ РѕС€РёР±РєРё, РєРѕРіРґР° РІСЃРµ РїРµСЂРµР±СЂР°РЅС‹
+    poisk_okoncqen := FindNextUTF8(sr ); { *Converted from FindNext* }
   end;
-  FindClose( sr );
+  FindCloseUTF8(sr ); { *Converted from FindClose* }
 
   Result := fajlov_vsego;
 end;
@@ -111,7 +124,7 @@ var
   kniga :tkniga;
 
 begin
-  stroka := GetCurrentDir;
+  stroka := GetCurrentDirUTF8; { *Converted from GetCurrentDir* }
 
   Memo1.Clear;
   KatalogPust( stroka+'\*.*', Memo1 );
