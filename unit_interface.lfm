@@ -29,8 +29,9 @@ object Form1: TForm1
     Width = 323
     Align = alBottom
     Lines.Strings = (
-      'Список исследованных каталогов'
+      '~~~!!!~~~'
     )
+    OnChange = Memo1Change
     ScrollBars = ssBoth
     TabOrder = 1
   end

@@ -13,7 +13,7 @@ uses
   LCLIntf, LCLType, LMessages,
 {$ENDIF}
   Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FileUtil;
+  Dialogs, StdCtrls, FileUtil, unit_konstanty;
 
 type
 
@@ -25,6 +25,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,6 +38,8 @@ type
     avtor,nazvanie :string;
     najdena :Boolean;
   end;
+
+
 
 var
   Form1: TForm1;
@@ -145,9 +148,23 @@ begin
   //showmessage( 'Завершение работы' );
 end;
 
+procedure Podgotovka_Memo( var Memo:Tmemo );
+//любые действия с Memo
+begin
+  memo.Clear;
+  memo.Lines.Add(Cqto_vyvoditsaq_v_Memo);
+end;
+
+
 procedure TForm1.FormCreate(Sender: TObject);
+begin
+  Podgotovka_Memo( Memo1 );
+end;
+
+procedure TForm1.Memo1Change(Sender: TObject);
 begin
 
 end;
+
 
 end.
