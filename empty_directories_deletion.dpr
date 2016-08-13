@@ -10,6 +10,7 @@ uses
   Interfaces,
 {$ENDIF}
   Forms,
+  unit_procedury in  'unit_procedury.pas',
   unit_konstanty in 'unit_konstanty.pas',
   unit_interface in 'unit_interface.pas' {Form1};
 
