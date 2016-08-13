@@ -16,10 +16,15 @@ uses
   Dialogs, StdCtrls, FileUtil;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     Button1: TButton;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -130,6 +135,19 @@ begin
   KatalogPust( stroka+'\*.*', Memo1 );
 
   beep;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  //отладочные сообщения - удалить!
+  memo1.Clear;
+  memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
+  showmessage( 'Завершение работы' );
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
 end;
 
 end.
