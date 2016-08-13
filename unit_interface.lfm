@@ -1,9 +1,9 @@
 object Form1: TForm1
-  Left = 445
+  Left = 442
   Height = 480
-  Top = 245
+  Top = 214
   Width = 323
-  Caption = 'Form1'
+  Caption = 'Удаление пустых каталогов'
   ClientHeight = 480
   ClientWidth = 323
   Color = clBtnFace
@@ -29,7 +29,7 @@ object Form1: TForm1
     Width = 323
     Align = alBottom
     Lines.Strings = (
-      'Memo1'
+      'Список исследованных каталогов'
     )
     ScrollBars = ssBoth
     TabOrder = 1

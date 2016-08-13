@@ -141,8 +141,8 @@ procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   //отладочные сообщения - удалить!
   memo1.Clear;
-  memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
-  showmessage( 'Завершение работы' );
+  //memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
+  //showmessage( 'Завершение работы' );
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
