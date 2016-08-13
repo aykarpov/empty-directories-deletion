@@ -1,4 +1,4 @@
-unit Unit1;
+unit unit_interface;
 
 {$IFDEF FPC}
   {$MODE Delphi}
