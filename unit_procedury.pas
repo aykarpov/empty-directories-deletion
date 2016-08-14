@@ -43,6 +43,17 @@ end;
 //
 //
 
+procedure Esli_Najden_Fajl( sr: TSearchRec; var fajlov_vsego:integer );
+//если найден файл, считаем, сколько их
+//в принципе, их число не важно, важен факт их наличия,
+//т.е. можно просто ставить флаг
+begin
+  if (sr.Attr and faDirectory) = 0 then
+  begin
+    inc( fajlov_vsego );
+  end;
+end;
+
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
 var
   atribut :integer;
@@ -71,16 +82,12 @@ begin
   begin
     if (sr.Name <> '.') and (sr.Name <> '..') then
     begin
-      if (sr.Attr and faDirectory) = 0 then
-      begin
-        inc( fajlov_vsego );
-      end;
+      Esli_Najden_Fajl( sr, fajlov_vsego );
 
       if (sr.Attr and faDirectory) <> 0 then
       begin
-        memo.Lines.Add( putw2+sr.Name + ' - katalog' );
+        memo.Lines.Add( putw2+sr.Name + Memo_Najden_katalog );
 
-        //ObxodKatalogov( putw2+sr.Name+'\*.*', memo, tegi, temp_kniga );
         fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
         if fajlov_vnizu = 0 then
         begin
@@ -104,8 +111,9 @@ procedure Udalenie( memo :TMemo );
 var
   stroka :string;
 begin
-  stroka := GetCurrentDirUTF8;
   Memo.Clear;
+
+  stroka := GetCurrentDirUTF8;
   KatalogPust( stroka+'\*.*', Memo );
 end;
 

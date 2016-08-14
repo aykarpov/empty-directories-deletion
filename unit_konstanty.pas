@@ -13,6 +13,7 @@ uses
 
 const
   Memo_Zacqem_ono_nugqno = 'Здесь будут перечислены пройденные каталоги';
+  Memo_Najden_katalog = ' - это каталог';
 
 
 
