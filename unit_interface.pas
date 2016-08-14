@@ -121,11 +121,15 @@ var
   stroka :string;
 
 begin
+  //отключить кнопку, чтобы не запустить дважды одновременно
+  button1.Enabled:= false;
   stroka := GetCurrentDirUTF8; { *Converted from GetCurrentDir* }
 
   Memo1.Clear;
   KatalogPust( stroka+'\*.*', Memo1 );
 
+  //разблокировать кнопку
+  button1.Enabled:= true;
   beep;
 end;
 
