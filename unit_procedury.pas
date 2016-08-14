@@ -54,22 +54,39 @@ begin
   end;
 end;
 
+procedure Esli_Najden_Katalog( sr: TSearchRec; var fajlov_vsego, fajlov_vnizu:integer; putw2: TFileName; memo:TMemo );
+//если это каталог, то...
+begin
+  if (sr.Attr and faDirectory) <> 0 then
+  begin
+    //сообщим, что это каталог
+    memo.Lines.Add( putw2+sr.Name + Memo_Najden_katalog );
+
+    //войдём в него, сотрём в нём всё, что можно, и посчитаем, сколько в нём файлов
+    fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
+
+    //если в нём нет файлов, сотрём его
+    if fajlov_vnizu = 0 then
+    begin
+      RemoveDirUTF8(putw2+sr.Name+'\' );
+    end;
+
+    fajlov_vsego := fajlov_vsego + fajlov_vnizu;
+  end;
+
+end;
+
+
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
 var
   atribut :integer;
-  poisk_bbs, sr: TSearchRec;
+  sr: TSearchRec;
   poisk_okoncqen :Integer;
   fajlov_vsego, fajlov_vnizu :Integer;
   putw2: TFileName;
-  bbs, teg_fajl,avtor,nazvanie :TextFile;
-  i, probel :Integer;
-  teg_katalog : string;
-  nakl_cqerta :Integer;
-  stroka, katalog :string;
-  iskomye_fajly :Boolean;
 begin
   fajlov_vsego := 0;
-  //готовим вспомогательные имена файлов
+  //удаляем из имени файла маску *.*
   putw2 := Copy( putw, 1, Length( putw )-3 );
 
   //обходим каталоги
@@ -83,24 +100,15 @@ begin
     if (sr.Name <> '.') and (sr.Name <> '..') then
     begin
       Esli_Najden_Fajl( sr, fajlov_vsego );
-
-      if (sr.Attr and faDirectory) <> 0 then
-      begin
-        memo.Lines.Add( putw2+sr.Name + Memo_Najden_katalog );
-
-        fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
-        if fajlov_vnizu = 0 then
-        begin
-          RemoveDirUTF8(putw2+sr.Name+'\' ); { *Converted from RemoveDir* }
-        end;
-        fajlov_vsego := fajlov_vsego + fajlov_vnizu;
-      end;
+      Esli_Najden_Katalog( sr, fajlov_vsego, fajlov_vnizu, putw2, memo );
     end;
 
     //FindNext возвращает 0, когда файды есть, и код ошибки, когда все перебраны
-    poisk_okoncqen := FindNextUTF8(sr ); { *Converted from FindNext* }
+    poisk_okoncqen := FindNextUTF8(sr );
   end;
-  FindCloseUTF8(sr ); { *Converted from FindClose* }
+
+  //поиск полагается закрыть!
+  FindCloseUTF8(sr );
 
   Result := fajlov_vsego;
 end;
