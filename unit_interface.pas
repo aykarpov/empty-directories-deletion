@@ -13,7 +13,7 @@ uses
   LCLIntf, LCLType, LMessages,
 {$ENDIF}
   Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FileUtil, unit_konstanty, unit_procedury;
+  Dialogs, StdCtrls, FileUtil, unit_konstanty, unit_procedury, Unit_potok;
 
 type
 
@@ -62,6 +62,12 @@ begin
   beep;
   //желательно помигать значком в панели задач или выдать всплывающую подсказку.
   //пока не знаю, как это сделать
+
+
+  // Cikl.Terminate;
+
+  // Cikl.Suspend;
+
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -70,6 +76,10 @@ begin
   memo1.Clear;
   //memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
   //showmessage( 'Завершение работы' );
+
+
+  Cikl.Terminate;
+  Cikl.Destroy;
 end;
 
 
@@ -78,6 +88,21 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Podgotovka_Memo( Memo1 );
+
+
+  Cikl := TPotok.Create( true );
+
+  Cikl.Priority := tpNormal;
+  cikl.memo := Memo1;
+  Cikl.flag := False;
+  //if Cikl.Suspended then
+  //begin
+  //  ShowMessage( 'Potok stoit!' );
+  //end;
+  Cikl.Resume;
+
+
+
 end;
 
 procedure TForm1.Memo1Change(Sender: TObject);

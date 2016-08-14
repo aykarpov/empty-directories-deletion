@@ -14,11 +14,14 @@ uses
   Dialogs, StdCtrls,
     //FileUtil, (* компилятор требует использовать модуль LazFileUtils *)
     LazFileUtils,
-    unit_konstanty;
+    unit_konstanty, Unit_potok;
 
 procedure Podgotovka_Memo( var Memo:Tmemo );
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
 procedure Udalenie( memo :TMemo );
+
+var
+  Cikl :TPotok;
 
 
 

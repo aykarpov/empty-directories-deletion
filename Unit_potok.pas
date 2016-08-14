@@ -9,7 +9,7 @@ uses
 type
   TPotok = class(TThread)
     memo :TMemo;
-    edit :TEdit;
+    //edit :TEdit;
     flag :Boolean;
     i    :longint;
     //procedure Vyvod( memo :TMemo; cqislo :Integer );
@@ -63,7 +63,7 @@ begin
 
     if flag = True then
     begin
-      i := StrToInt( edit.Text );
+      //i := StrToInt( edit.Text );
       flag := False;
     end;
 
