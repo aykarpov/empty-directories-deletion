@@ -51,20 +51,21 @@ procedure TForm1.Button1Click(Sender: TObject);
 var
   atribut :Integer;
   sr: TSearchRec;
-  stroka :string;
 
 begin
   //отключить кнопку, чтобы не запустить дважды одновременно
   button1.Enabled:= false;
 
-  stroka := GetCurrentDirUTF8;
-
-  Memo1.Clear;
-  KatalogPust( stroka+'\*.*', Memo1 );
+  //удалить пустые каталоги
+  Udalenie( Memo1 );
 
   //разблокировать кнопку
   button1.Enabled:= true;
+
+  //просигналить о завершении
   beep;
+  //желательно помигать значком в панели задач или выдать всплывающую подсказку.
+  //пока не знаю, как это сделать
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);

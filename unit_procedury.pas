@@ -15,6 +15,8 @@ uses
 
 procedure Podgotovka_Memo( var Memo:Tmemo );
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
+procedure Udalenie( memo :TMemo );
+
 
 
 
@@ -97,7 +99,15 @@ begin
 end;
 
 
-
+procedure Udalenie( memo :TMemo );
+//запуск удаления
+var
+  stroka :string;
+begin
+  stroka := GetCurrentDirUTF8;
+  Memo.Clear;
+  KatalogPust( stroka+'\*.*', Memo );
+end;
 
 end.
 
