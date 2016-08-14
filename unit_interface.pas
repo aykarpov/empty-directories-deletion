@@ -32,13 +32,6 @@ type
     { Public declarations }
   end;
 
-type
-  tkniga = record
-    avtor,nazvanie :string;
-    najdena :Boolean;
-  end;
-
-
 
 var
   Form1: TForm1;
@@ -76,7 +69,6 @@ var
   teg_katalog : string;
   nakl_cqerta :Integer;
   stroka, katalog :string;
-  temp_kniga :tkniga;
   iskomye_fajly :Boolean;
 begin
   fajlov_vsego := 0;
@@ -127,7 +119,6 @@ var
   atribut :Integer;
   sr: TSearchRec;
   stroka :string;
-  kniga :tkniga;
 
 begin
   stroka := GetCurrentDirUTF8; { *Converted from GetCurrentDir* }
