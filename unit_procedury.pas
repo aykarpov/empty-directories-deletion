@@ -11,7 +11,10 @@ interface
 
 uses
     Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FileUtil, unit_konstanty;
+  Dialogs, StdCtrls,
+    //FileUtil, (* компилятор требует использовать модуль LazFileUtils *)
+    LazFileUtils,
+    unit_konstanty;
 
 procedure Podgotovka_Memo( var Memo:Tmemo );
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;

@@ -50,7 +50,6 @@ implementation
 procedure TForm1.Button1Click(Sender: TObject);
 var
   atribut :Integer;
-  sr: TSearchRec;
 
 begin
   //отключить кнопку, чтобы не запустить дважды одновременно
