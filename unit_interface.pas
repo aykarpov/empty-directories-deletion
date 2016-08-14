@@ -48,9 +48,6 @@ implementation
 
 
 procedure TForm1.Button1Click(Sender: TObject);
-var
-  atribut :Integer;
-
 begin
   //отключить кнопку, чтобы не запустить дважды одновременно
   button1.Enabled:= false;
