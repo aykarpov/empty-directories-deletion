@@ -12,7 +12,7 @@ uses
   Classes, SysUtils;
 
 const
-  Cqto_vyvoditsaq_v_Memo = 'Список исследованных каталогов';
+  Memo_Zacqem_ono_nugqno = 'Здесь будут перечислены пройденные каталоги';
 
 
 

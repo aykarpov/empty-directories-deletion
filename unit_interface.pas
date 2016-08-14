@@ -148,12 +148,7 @@ begin
   //showmessage( 'Завершение работы' );
 end;
 
-procedure Podgotovka_Memo( var Memo:Tmemo );
-//любые действия с Memo
-begin
-  memo.Clear;
-  memo.Lines.Add(Cqto_vyvoditsaq_v_Memo);
-end;
+
 
 
 procedure TForm1.FormCreate(Sender: TObject);
