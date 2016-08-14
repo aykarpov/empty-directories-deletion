@@ -33,7 +33,6 @@ type
   end;
 
 type
-  tspisok_katalogov = array of string;
   tkniga = record
     avtor,nazvanie :string;
     najdena :Boolean;
@@ -128,7 +127,6 @@ var
   atribut :Integer;
   sr: TSearchRec;
   stroka :string;
-  spisok: tspisok_katalogov;
   kniga :tkniga;
 
 begin
