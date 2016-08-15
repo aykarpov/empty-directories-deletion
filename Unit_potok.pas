@@ -12,7 +12,7 @@ type
     //edit :TEdit;
     flag :Boolean;
     i    :longint;
-    //procedure Vyvod( memo :TMemo; cqislo :Integer );
+
   private
     { Private declarations }
     procedure UpdateMemo;
@@ -70,6 +70,8 @@ begin
 
     if terminated = True then
     begin
+      i:= -9999;
+      Synchronize(UpdateMemo);
       Break;
     end;
 

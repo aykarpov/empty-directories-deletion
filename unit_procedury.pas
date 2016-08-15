@@ -19,6 +19,9 @@ uses
 procedure Podgotovka_Memo( var Memo:Tmemo );
 function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
 procedure Udalenie( memo :TMemo );
+procedure Potok_Zapusk(var Cikl :TPotok; Memo:TMemo );
+procedure Potok_Ostanovka(var Cikl :TPotok; Memo:TMemo );
+procedure Potok_Udalenie(var Cikl :TPotok; Memo:TMemo );
 
 var
   Cikl :TPotok;
@@ -34,6 +37,41 @@ begin
   memo.Clear;
   memo.Lines.Add(Memo_Zacqem_ono_nugqno);
 end;
+
+procedure Potok_Zapusk(var Cikl :TPotok; Memo:TMemo );
+begin
+  //создадим экземпляр класса
+  Cikl := TPotok.Create( false );
+
+  //приоритет
+  Cikl.Priority := tpNormal;
+
+  //в какой Memo будем писать
+  cikl.memo := Memo;
+  Cikl.flag := False;
+
+  //if Cikl.Suspended then
+
+  //запуск потока
+  //Cikl.Resume;
+end;
+
+
+procedure Potok_Ostanovka(var Cikl :TPotok; Memo:TMemo );
+begin
+
+  Cikl.Terminate;
+end;
+
+procedure Potok_Udalenie(var Cikl :TPotok; Memo:TMemo );
+begin
+  memo.Lines.Add( Memo_Konec_raboty );
+
+  Cikl.Terminate;
+  //cikl.Free; (*нельзя использовать - ошибка доступа*)
+  Cikl.Destroy;
+end;
+
 
 
 //Цель:

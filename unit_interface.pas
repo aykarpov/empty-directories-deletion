@@ -13,7 +13,7 @@ uses
   LCLIntf, LCLType, LMessages,
 {$ENDIF}
   Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, FileUtil, unit_konstanty, unit_procedury, Unit_potok;
+  Dialogs, StdCtrls, FileUtil, unit_konstanty, unit_procedury;//, Unit_potok;
 
 type
 
@@ -37,6 +37,8 @@ var
   Form1: TForm1;
 
 implementation
+
+uses Unit_potok;
 
 {$IFnDEF FPC}
   {$R *.dfm}
@@ -64,9 +66,10 @@ begin
   //пока не знаю, как это сделать
 
 
-  // Cikl.Terminate;
-
-  // Cikl.Suspend;
+  //Cikl.Terminate;
+  Cikl.Suspend;
+  cikl.Resume;
+  Potok_Ostanovka(Cikl, Memo1 );
 
 end;
 
@@ -77,9 +80,7 @@ begin
   //memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
   //showmessage( 'Завершение работы' );
 
-
-  Cikl.Terminate;
-  Cikl.Destroy;
+  Potok_Udalenie(Cikl, Memo1 );
 end;
 
 
@@ -88,21 +89,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Podgotovka_Memo( Memo1 );
-
-
-  Cikl := TPotok.Create( true );
-
-  Cikl.Priority := tpNormal;
-  cikl.memo := Memo1;
-  Cikl.flag := False;
-  //if Cikl.Suspended then
-  //begin
-  //  ShowMessage( 'Potok stoit!' );
-  //end;
-  Cikl.Resume;
-
-
-
+  Potok_Zapusk(Cikl , Memo1 );
 end;
 
 procedure TForm1.Memo1Change(Sender: TObject);
