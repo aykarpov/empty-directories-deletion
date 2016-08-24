@@ -167,6 +167,8 @@ begin
   Synchronize(Memo_Soobhqenie_o_zapuske);
 
   otcqoqt := tfajlotcqoqta.Start;
+  otcqoqt.rabotaet := true;
+
   //удалить пустые каталоги
   Udalenie( Memo );
 
