@@ -56,8 +56,7 @@ begin
   //блокировать запись в мемо (в принципе, это не нужно)
   memo1.ReadOnly:= true;
 
-  //удалить пустые каталоги
-  Udalenie( Memo1 );
+  Potok_Zapusk(Cikl , Memo1 );
 
   //разблокировать кнопку
   button1.Enabled:= true;
@@ -76,7 +75,7 @@ begin
   Cikl.Suspend;
   cikl.Resume;
   Potok_Ostanovka(Cikl, Memo1 );
-
+  Potok_Udalenie(Cikl, Memo1 );
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -86,7 +85,7 @@ begin
   //memo1.Lines.Add( 'ВСЕ ПУСТЫЕ КАТАЛОГИ УДАЛЕНЫ' );
   //showmessage( 'Завершение работы' );
 
-  Potok_Udalenie(Cikl, Memo1 );
+
 end;
 
 
@@ -95,7 +94,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Podgotovka_Memo( Memo1 );
-  Potok_Zapusk(Cikl , Memo1 );
+
 end;
 
 procedure TForm1.Memo1Change(Sender: TObject);

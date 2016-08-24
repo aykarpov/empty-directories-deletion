@@ -3,6 +3,9 @@ unit Unit_potok;
 interface
 
 uses
+
+    LazFileUtils,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, unit_konstanty;
 
@@ -16,6 +19,11 @@ type
     { Private declarations }
     procedure Memo_Soobhqenie_o_zapuske;
     procedure Memo_Soobhqenie_ob_ostanovke;
+    function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
+    procedure Udalenie( memo :TMemo );
+    procedure Esli_Najden_Fajl( sr: TSearchRec; var fajlov_vsego:integer );
+    procedure Esli_Najden_Katalog( sr: TSearchRec; var fajlov_vsego, fajlov_vnizu:integer; putw2: TFileName; memo:TMemo );
+
 
   protected
     procedure Execute; override;
@@ -56,10 +64,99 @@ begin
 end;
 
 
+procedure TPotok.Esli_Najden_Fajl( sr: TSearchRec; var fajlov_vsego:integer );
+//если найден файл, считаем, сколько их
+//в принципе, их число не важно, важен факт их наличия,
+//т.е. можно просто ставить флаг
+begin
+  if (sr.Attr and faDirectory) = 0 then
+  begin
+    inc( fajlov_vsego );
+  end;
+end;
+
+
+procedure TPotok.Esli_Najden_Katalog( sr: TSearchRec; var fajlov_vsego, fajlov_vnizu:integer; putw2: TFileName; memo:TMemo );
+//если это каталог, то...
+begin
+  if (sr.Attr and faDirectory) <> 0 then
+  begin
+    //сообщим, что это каталог
+    memo.Lines.Add( putw2+sr.Name + Memo_Najden_katalog );
+
+    //войдём в него, сотрём в нём всё, что можно, и посчитаем, сколько в нём файлов
+    fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
+
+    //если в нём нет файлов, сотрём его
+    if fajlov_vnizu = 0 then
+    begin
+      RemoveDirUTF8(putw2+sr.Name+'\' );
+    end;
+
+    fajlov_vsego := fajlov_vsego + fajlov_vnizu;
+  end;
+
+end;
+
+procedure TPotok.Udalenie( memo :TMemo );
+//запуск удаления
+var
+  stroka :string;
+begin
+  Memo.Clear;
+
+  stroka := GetCurrentDirUTF8;
+  KatalogPust( stroka+'\*.*', Memo );
+end;
+
+
+
+function TPotok.KatalogPust( putw:TFileName; memo :TMemo ): Integer;
+var
+  atribut :integer;
+  sr: TSearchRec;
+  poisk_okoncqen :Integer;
+  fajlov_vsego, fajlov_vnizu :Integer;
+  putw2: TFileName;
+begin
+  fajlov_vsego := 0;
+  //удаляем из имени файла маску *.*
+  putw2 := Copy( putw, 1, Length( putw )-3 );
+
+  //обходим каталоги
+  poisk_okoncqen := 0;
+
+  atribut := faAnyFile;
+  poisk_okoncqen := FindFirstUTF8(putw,atribut,sr ); { *Converted from FindFirst* }
+
+  while poisk_okoncqen=0 do
+  begin
+    if (sr.Name <> '.') and (sr.Name <> '..') then
+    begin
+      Esli_Najden_Fajl( sr, fajlov_vsego );
+      Esli_Najden_Katalog( sr, fajlov_vsego, fajlov_vnizu, putw2, memo );
+    end;
+
+    //FindNext возвращает 0, когда файлы есть, и код ошибки, когда все перебраны
+    poisk_okoncqen := FindNextUTF8(sr );
+  end;
+
+  //поиск полагается закрыть!
+  FindCloseUTF8(sr );
+
+  Result := fajlov_vsego;
+end;
+
+
+
+
 procedure TPotok.Execute;
 begin
   { Place thread code here }
   Synchronize(Memo_Soobhqenie_o_zapuske);
+
+  //удалить пустые каталоги
+  Udalenie( Memo );
 
 
 
