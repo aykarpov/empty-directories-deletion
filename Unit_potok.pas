@@ -39,6 +39,7 @@ implementation
 
 uses unit_procedury;
 
+
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -158,10 +159,13 @@ end;
 
 
 procedure TPotok.Execute;
+var
+  otcqoqt: tfajlotcqoqta;
 begin
   { Place thread code here }
   Synchronize(Memo_Soobhqenie_o_zapuske);
 
+  otcqoqt := tfajlotcqoqta.Start;
   //удалить пустые каталоги
   Udalenie( Memo );
 
@@ -171,6 +175,7 @@ begin
     if terminated = True then
     begin
       Synchronize(Memo_Soobhqenie_ob_ostanovke);
+      otcqoqt.Final;
       //Break; //использовать только в цикле
       exit;
     end;
