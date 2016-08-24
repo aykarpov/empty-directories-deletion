@@ -16,6 +16,7 @@ const
   Memo_Najden_katalog = ' - это каталог';
   Memo_Konec_raboty = '~~~ Завершение работы... ~~~';
   Memo_Potok_ostanovlen = '~~~ Поток остановлен ~~~';
+  Memo_Potok_zapuhqen = '~~~ Поток запущен ~~~';
 
 
 

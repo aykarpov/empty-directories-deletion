@@ -4,18 +4,18 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  Dialogs, StdCtrls, unit_konstanty;
 
 type
   TPotok = class(TThread)
-    memo :TMemo;
-    //edit :TEdit;
+    memo :TMemo;  //memo, в которое будет выводиться имя текущего каталога
     flag :Boolean;
     i    :longint;
 
   private
     { Private declarations }
-    procedure UpdateMemo;
+    procedure Memo_Soobhqenie_o_zapuske;
+    procedure Memo_Soobhqenie_ob_ostanovke;
 
   protected
     procedure Execute; override;
@@ -44,45 +44,33 @@ uses unit_procedury;
 { TPotok }
 
 
-procedure TPotok.UpdateMemo;
+procedure TPotok.Memo_Soobhqenie_o_zapuske;
 begin
-   memo.Lines.Add( IntToStr( i ) );
+   memo.Lines.Add( Memo_Potok_zapuhqen );
 end; 
+
+
+procedure TPotok.Memo_Soobhqenie_ob_ostanovke;
+begin
+   memo.Lines.Add( Memo_Potok_ostanovlen );
+end;
 
 
 procedure TPotok.Execute;
 begin
   { Place thread code here }
+  Synchronize(Memo_Soobhqenie_o_zapuske);
 
 
-
-  i := 0;
-  repeat
-    if (i mod 365) = 0 then
-    begin
-      //memo.Lines.Add( IntToStr( i ) );
-      Synchronize(UpdateMemo);
-      //Suspend;
-    end;
-
-    if flag = True then
-    begin
-      //i := StrToInt( edit.Text );
-      flag := False;
-    end;
 
 
     if terminated = True then
     begin
-      i:= -9999;
-      //  Podgotovka_Memo( memo );
-      Synchronize(UpdateMemo);
-      Break;
+      Synchronize(Memo_Soobhqenie_ob_ostanovke);
+      //Break; //использовать только в цикле
+      exit;
     end;
 
-    inc( i );
-    Sleep( 1 );
-  until i >= 10000000;
 end;
 
 
