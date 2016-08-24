@@ -14,11 +14,13 @@ type
     memo :TMemo;  //memo, в которое будет выводиться имя текущего каталога
     flag :Boolean;
     i    :longint;
+    tekuhqij_katalog :string; //переменная только для передачи значения в memo
 
   private
     { Private declarations }
     procedure Memo_Soobhqenie_o_zapuske;
     procedure Memo_Soobhqenie_ob_ostanovke;
+    procedure Memo_Soobhqenie_o_tekuhqem_kataloge;
     function KatalogPust( putw:TFileName; memo :TMemo ): Integer;
     procedure Udalenie( memo :TMemo );
     procedure Esli_Najden_Fajl( sr: TSearchRec; var fajlov_vsego:integer );
@@ -63,6 +65,10 @@ begin
    memo.Lines.Add( Memo_Potok_ostanovlen );
 end;
 
+procedure TPotok.Memo_Soobhqenie_o_tekuhqem_kataloge;
+begin
+  memo.Lines.Add( tekuhqij_katalog + Memo_Najden_katalog );
+end;
 
 procedure TPotok.Esli_Najden_Fajl( sr: TSearchRec; var fajlov_vsego:integer );
 //если найден файл, считаем, сколько их
@@ -82,7 +88,8 @@ begin
   if (sr.Attr and faDirectory) <> 0 then
   begin
     //сообщим, что это каталог
-    memo.Lines.Add( putw2+sr.Name + Memo_Najden_katalog );
+    tekuhqij_katalog := putw2 + sr.Name;
+    Synchronize(Memo_Soobhqenie_o_tekuhqem_kataloge);
 
     //войдём в него, сотрём в нём всё, что можно, и посчитаем, сколько в нём файлов
     fajlov_vnizu := KatalogPust( putw2+sr.Name+'\*.*', memo );
