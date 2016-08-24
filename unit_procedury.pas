@@ -59,7 +59,6 @@ end;
 
 procedure Potok_Ostanovka(var Cikl :TPotok; Memo:TMemo );
 begin
-
   Cikl.Terminate;
 end;
 
@@ -147,7 +146,7 @@ begin
       Esli_Najden_Katalog( sr, fajlov_vsego, fajlov_vnizu, putw2, memo );
     end;
 
-    //FindNext возвращает 0, когда файды есть, и код ошибки, когда все перебраны
+    //FindNext возвращает 0, когда файлы есть, и код ошибки, когда все перебраны
     poisk_okoncqen := FindNextUTF8(sr );
   end;
 

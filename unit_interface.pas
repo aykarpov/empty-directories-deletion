@@ -53,12 +53,17 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   //отключить кнопку, чтобы не запустить дважды одновременно
   button1.Enabled:= false;
+  //блокировать запись в мемо (в принципе, это не нужно)
+  memo1.ReadOnly:= true;
 
   //удалить пустые каталоги
   Udalenie( Memo1 );
 
   //разблокировать кнопку
   button1.Enabled:= true;
+  //разблокировать запись в мемо
+  memo1.ReadOnly:= false;
+
 
   //просигналить о завершении
   beep;
