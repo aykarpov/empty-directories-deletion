@@ -27,6 +27,8 @@ type
 
 implementation
 
+uses unit_procedury;
+
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -52,6 +54,8 @@ procedure TPotok.Execute;
 begin
   { Place thread code here }
 
+
+
   i := 0;
   repeat
     if (i mod 365) = 0 then
@@ -71,6 +75,7 @@ begin
     if terminated = True then
     begin
       i:= -9999;
+      //  Podgotovka_Memo( memo );
       Synchronize(UpdateMemo);
       Break;
     end;
