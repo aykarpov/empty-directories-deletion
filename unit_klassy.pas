@@ -10,6 +10,7 @@ uses
 type
   tFajlOtcqoqta = class
     fajl :textfile;
+    rabotaet :boolean;
     procedure Tekst_v_fajl( stroka :string );
     constructor Start;
     destructor Final;
@@ -19,21 +20,35 @@ implementation
 
 procedure tFajlOtcqoqta.Tekst_v_fajl( stroka :string );
 begin
-  writeln( fajl, stroka );
+  if rabotaet = true then
+  begin
+    writeln( fajl, stroka );
+  end;
 end;
 
 constructor tFajlOtcqoqta.Start;
 begin
   inherited Create;
-  assignfile( fajl, 'udaleno.log' );
-  rewrite( fajl );
-  writeln( fajl, 'Начало удаления' );
+
+  rabotaet := true;
+
+  if rabotaet = true then
+  begin
+    assignfile( fajl, 'udaleno.log' );
+    rewrite( fajl );
+    writeln( fajl, 'Начало удаления' );
+  end;
 end;
 
 destructor tFajlOtcqoqta.Final;
 begin
-  writeln( fajl, 'Конец удаления' );
-  closefile( fajl );
+  rabotaet := true;
+
+  if rabotaet = true then
+  begin
+    writeln( fajl, 'Конец удаления' );
+    closefile( fajl );
+  end;
   inherited Destroy;
 end;
 
