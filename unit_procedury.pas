@@ -16,12 +16,6 @@ uses
     LazFileUtils,
     unit_konstanty, Unit_potok;
 
-type
-  tFajlOtcqoqta = class
-    fajl :textfile;
-    constructor Start;
-    destructor Final;
-  end;
 
 procedure Podgotovka_Memo( var Memo:Tmemo );
 procedure Potok_Zapusk(var Cikl :TPotok; Memo:TMemo );
@@ -37,20 +31,7 @@ var
 implementation
 
 
-constructor tFajlOtcqoqta.Start;
-begin
-  inherited Create;
-  assignfile( fajl, 'udaleno.log' );
-  rewrite( fajl );
-  writeln( fajl, 'Начало удаления' );
-end;
 
-destructor tFajlOtcqoqta.Final;
-begin
-  writeln( fajl, 'Конец удаления' );
-  closefile( fajl );
-  inherited Destroy;
-end;
 
 
 

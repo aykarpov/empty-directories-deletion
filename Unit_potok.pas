@@ -7,7 +7,7 @@ uses
     LazFileUtils,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, unit_konstanty;
+  Dialogs, StdCtrls, unit_konstanty, unit_klassy;
 
 type
   TPotok = class(TThread)
@@ -15,6 +15,8 @@ type
     flag :Boolean;
     i    :longint;
     tekuhqij_katalog :string; //переменная только для передачи значения в memo
+    otcqoqt: tfajlotcqoqta;
+
 
   private
     { Private declarations }
@@ -90,6 +92,7 @@ begin
   begin
     //сообщим, что это каталог
     tekuhqij_katalog := putw2 + sr.Name;
+    otcqoqt.Tekst_v_fajl(tekuhqij_katalog);
     Synchronize(Memo_Soobhqenie_o_tekuhqem_kataloge);
 
     //войдём в него, сотрём в нём всё, что можно, и посчитаем, сколько в нём файлов
@@ -159,8 +162,6 @@ end;
 
 
 procedure TPotok.Execute;
-var
-  otcqoqt: tfajlotcqoqta;
 begin
   { Place thread code here }
   Synchronize(Memo_Soobhqenie_o_zapuske);
